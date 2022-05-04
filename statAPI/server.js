@@ -1,36 +1,20 @@
 const http = require("http");
-// const statistic = require("./data/statistic");
+const url = require("url");
+
 const {
-  getStats,
   getStat,
-  createStat,
-  updateStat,
-  deleteStat,
+  postStat,
+  deleteDevice,
 } = require("./controller/statController");
 
-// const server = http.createServer((req, res) => {
-//   res.statusCode = 200;
-//   res.setHeader("Content-Type", "text/html");
-//   res.write("<h1>Hi from Team 3</h1>");
-//   res.end();
-// });
 const server = http.createServer((req, res) => {
-  if (req.url === "/api/statistic" && req.method === "GET") {
-    getStats(req, res);
-  } else if (req.url.match(/\/api\/statistic\/\w+/) && req.method === "GET") {
-    const id = req.url.split("/")[3];
-    getStat(req, res, id);
-  } else if (req.url === "/api/statistic" && req.method === "POST") {
-    createStat(req, res);
-  } else if (req.url.match(/\/api\/statistic\/\w+/) && req.method === "PUT") {
-    const id = req.url.split("/")[3];
-    updateStat(req, res, id);
-  } else if (
-    req.url.match(/\/api\/statistic\/\w+/) &&
-    req.method === "DELETE"
-  ) {
-    const id = req.url.split("/")[3];
-    deleteStat(req, res, id);
+  const pathname = url.parse(req.url,true).pathname
+  if (pathname === "/api/stat" && req.method === "GET") {
+    getStat(req, res);
+  } else if (pathname === "/api/stat" && req.method === "POST") {
+    postStat(req, res);
+  } else if (pathname === "/api/device" && req.method === "DELETE") {
+    deleteDevice(req, res);
   } else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ message: "Undefined" }));

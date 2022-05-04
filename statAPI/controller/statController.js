@@ -1,25 +1,16 @@
+const url = require('url');
+
 const Statistic = require("../model/statModel");
 
 const { getPostData } = require("../utils");
 
-// @desc    Gets All stats
-// @route   GET /api/stats
-async function getStats(req, res) {
+// @desc    Gets statistic for specific device id
+// @route   GET /api/stat
+async function getStat(req, res) {
   try {
-    const stats = await Statistic.findAll();
+    const query = url.parse(req.url, true).query
 
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(stats));
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-// @desc    Gets Single stat
-// @route   GET /api/stat/:id
-async function getStat(req, res, id) {
-  try {
-    const stat = await Statistic.findById(id);
+    const stat = await Statistic.find(query.id, query.startdate, query.enddate);
 
     if (!stat) {
       res.writeHead(404, { "Content-Type": "application/json" });
@@ -33,12 +24,12 @@ async function getStat(req, res, id) {
   }
 }
 
-// @desc    Create a stat
-// @route   POST /api/stats
-async function createStat(req, res) {
+// @desc    Create (update) statistics for a day
+// @route   POST /api/stat
+async function postStat(req, res) {
   try {
+    const {id} = url.parse(req.url, true).query
     const body = await getPostData(req);
-
     const { date, visitors } = JSON.parse(body);
 
     const stat = {
@@ -46,7 +37,7 @@ async function createStat(req, res) {
       visitors,
     };
 
-    const newStat = await Statistic.create(stat);
+    const newStat = await Statistic.put(id, stat);
 
     res.writeHead(201, { "Content-Type": "application/json" });
     return res.end(JSON.stringify(newStat));
@@ -55,58 +46,29 @@ async function createStat(req, res) {
   }
 }
 
-// @desc    Update a stat
-// @route   PUT /api/stats/:id
-async function updateStat(req, res, id) {
+// @desc    Delete device and all the date for it
+// @route   DELETE /api/device
+async function deleteDevice(req, res) {
   try {
-    const stat = await Statistic.findById(id);
+    const {id} = url.parse(req.url, true).query
 
-    if (!stat) {
-      res.writeHead(404, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ message: "stat Not Found" }));
-    } else {
-      const body = await getPostData(req);
-
-      const { date, visitors } = JSON.parse(body);
-
-      const statData = {
-        date: date || stat.date,
-        visitors: visitors || stat.visitors,
-      };
-
-      const updStat = await Statistic.update(id, statData);
-
-      res.writeHead(200, { "Content-Type": "application/json" });
-      return res.end(JSON.stringify(updStat));
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-// @desc    Delete Product
-// @route   DELETE /api/product/:id
-async function deleteStat(req, res, id) {
-  try {
-    const stat = await Statistic.findById(id);
-
-    if (!stat) {
-      res.writeHead(404, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ message: "Statistic Not Found" }));
-    } else {
-      await Statistic.remove(id);
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ message: `Statistic ${id} removed` }));
-    }
+    Statistic.remove(id).then(
+      (result) => {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ message: `Statistics for device ${id} removed` }));
+      },
+      (error) => {
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ message: error.prototype.message }));
+      }
+    );
   } catch (error) {
     console.log(error);
   }
 }
 
 module.exports = {
-  getStats,
   getStat,
-  createStat,
-  updateStat,
-  deleteStat,
+  postStat,
+  deleteDevice,
 };
