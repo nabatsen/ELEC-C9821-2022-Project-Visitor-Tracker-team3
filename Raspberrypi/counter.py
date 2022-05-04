@@ -54,8 +54,10 @@ def send():
             "date": time.strftime('%Y-%m-%d', time.localtime()),
             "visitors": len(entered)
         }
-
-        requests.post(SERVER_URL + "/api/stat?id=" + str(DEVICE_ID), json=payload)
+        try:
+            requests.post(SERVER_URL + "/api/stat?id=" + str(DEVICE_ID), json=payload)
+        except:
+            pass
 
 
 def next_id():
