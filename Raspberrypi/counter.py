@@ -1,16 +1,24 @@
 import cv2
 import numpy as np
 from openvino.inference_engine import IECore
+import sys
+import time, datetime
+import threading
+import requests
 
 ie = IECore()
 
+DEVICE_ID = 1
+SERVER_URL = "http://localhost:3000"
 MODEL_LOCATION = "./model/person-detection-0202.xml"
 DIST_THRESHOLD = 20
 VIDEO_SOURCE = "./MOT20-02-raw.mp4"
 #VIDEO_SOURCE = 0
 CONFIDENCE_THRESHOLD = 0.1
+ID_AGE_THRESHOLD = 0
 LINE = ((0, 350), (960, 370))
 SHOW_IMG = True
+SENDING_FREQ = 10
 
 net = ie.read_network(model=MODEL_LOCATION)
 input_name = next(iter(net.input_info))
@@ -21,17 +29,50 @@ N, C, H, W = net.input_info[input_name].tensor_desc.dims
 cap = cv2.VideoCapture(VIDEO_SOURCE)
 
 perv_people = []  # [[id, (x,y)]]
+id_age = dict()  # {id -> frames since first detection}
 entered = set()
 
-
 next_id_val = 0
+
+
+def reset_count():
+    global entered
+    while True:
+        now = datetime.datetime.today()
+        reset_time = datetime.datetime(now.year, now.month, now.day, 2, 0)
+        if now.hour >= 2:
+           reset_time += datetime.timedelta(days=1)
+        time.sleep((reset_time - now).total_seconds())
+        entered = set()
+
+
+def send():
+    while True:
+        time.sleep(SENDING_FREQ)
+
+        payload = {
+            "date": time.strftime('%Y-%m-%d', time.localtime()),
+            "visitors": len(entered)
+        }
+
+        requests.post(SERVER_URL + "/api/stat?id=" + str(DEVICE_ID), json=payload)
 
 
 def next_id():
     global next_id_val
     id = next_id_val
+    id_age[id] = 0
     next_id_val += 1
     return id
+
+
+resetting_thread = threading.Thread(target=reset_count)
+resetting_thread.daemon = True
+resetting_thread.start()
+
+sending_thread = threading.Thread(target=send)
+sending_thread.daemon = True
+sending_thread.start()
 
 
 while True:
@@ -77,12 +118,15 @@ while True:
                     closest_i = i
             if closest_i != -1:
                 current_people[closest_i][0] = id
+                id_age[id] += 1
                 k = (LINE[1][1] - LINE[0][1]) / (LINE[1][0] - LINE[0][0])
                 b = LINE[0][1] - k * LINE[0][0]
                 y_curr = current_people[closest_i][1][1]
                 x_curr = current_people[closest_i][1][0]
-                if y < (k*x+b) and y_curr > (k*x_curr+b):
+                if id_age[id] > ID_AGE_THRESHOLD and y < (k*x+b) and y_curr > (k*x_curr+b):
                     entered.add(id)
+            else:
+                del id_age[id]
 
         for i in range(len(current_people)):
             if current_people[i][0] == -1:
@@ -102,4 +146,7 @@ while True:
             break
     else:
         break
+
+
+sys.exit()
 
