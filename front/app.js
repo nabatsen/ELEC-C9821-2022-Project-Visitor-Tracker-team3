@@ -18,6 +18,7 @@ const accounts = [example_acc1, example_acc2, example_acc3];
 const btnLogin = document.querySelector('.login__btn');
 const calendar = document.querySelector('.container');
 const fetch = document.querySelector('.fetch-api');
+const addData = document.querySelector('.add-data');
 const labelWelcome = document.querySelector('.welcome');
 const loginUsername = document.querySelector('.username');
 const loginPassword = document.querySelector('.password');
@@ -42,6 +43,7 @@ btnLogin.addEventListener('click', function (e) {
     loginPassword.blur();
     labelWelcome.textContent = `Welcome back`;
     fetch.classList.remove('hidden');
+    addData.classList.remove('hidden');
     // calendar.style.opacity = 100;
   }
 });

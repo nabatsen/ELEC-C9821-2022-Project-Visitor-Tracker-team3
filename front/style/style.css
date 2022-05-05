@@ -161,14 +161,15 @@ nav {
   background-color: #cca722;
   color: white;
 }
-.fetch-api {
+.fetch-api,
+.add-data {
   border: none;
   background: none;
-  font-size: 2.2rem;
+  font-size: 2rem;
   color: antiquewhite;
   cursor: pointer;
   transition: all 0.3s;
-  padding: 0 25rem 0;
+  padding: 0 20rem 1rem;
 }
 
 /* Display fetch data button after log-in */
