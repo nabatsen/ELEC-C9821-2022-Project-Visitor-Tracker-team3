@@ -17,7 +17,8 @@ const accounts = [example_acc1, example_acc2, example_acc3];
 
 const btnLogin = document.querySelector('.login__btn');
 const calendar = document.querySelector('.container');
-
+const fetch = document.querySelector('.fetch-api');
+const labelWelcome = document.querySelector('.welcome');
 const loginUsername = document.querySelector('.username');
 const loginPassword = document.querySelector('.password');
 
@@ -35,8 +36,13 @@ let currentAccount;
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
   currentAccount = accounts.find(acc => acc.username === loginUsername.value);
-  if (currentAccount?.password === loginPassword.value) {
-    updateUI();
+  console.log(currentAccount);
+  if (currentAccount?.password === Number(loginPassword.value)) {
+    loginUsername.value = loginPassword.value = '';
+    loginPassword.blur();
+    labelWelcome.textContent = `Welcome back`;
+    fetch.classList.remove('hidden');
+    // calendar.style.opacity = 100;
   }
 });
 
