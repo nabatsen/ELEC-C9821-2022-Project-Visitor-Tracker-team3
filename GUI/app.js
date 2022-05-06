@@ -1,52 +1,10 @@
 'use strict';
 
-const example_acc1 = {
-  username: 'akai2212',
-  password: 234615,
-};
-const example_acc2 = {
-  username: 'blake2211',
-  password: 846238,
-};
-const example_acc3 = {
-  username: 'betty2213',
-  password: 'betty22sss',
-};
-
-const accounts = [example_acc1, example_acc2, example_acc3];
-
-const btnLogin = document.querySelector('.login__btn');
-const calendar = document.querySelector('.container');
 const fetch = document.querySelector('.fetch-api');
 const addData = document.querySelector('.add-data');
 const labelWelcome = document.querySelector('.welcome');
-const loginUsername = document.querySelector('.username');
-const loginPassword = document.querySelector('.password');
 
 //////////
-const showStatistic = function () {};
-
-const updateUI = function () {
-  calendar.classList.remove('hidden');
-  showStatistic();
-};
-
-////////////////////////// Handle event
-let currentAccount;
-
-btnLogin.addEventListener('click', function (e) {
-  e.preventDefault();
-  currentAccount = accounts.find(acc => acc.username === loginUsername.value);
-  console.log(currentAccount);
-  if (currentAccount?.password === Number(loginPassword.value)) {
-    loginUsername.value = loginPassword.value = '';
-    loginPassword.blur();
-    labelWelcome.textContent = `Welcome back`;
-    fetch.classList.remove('hidden');
-    addData.classList.remove('hidden');
-    // calendar.style.opacity = 100;
-  }
-});
 
 ////////////////////////// Calendar
 const date = new Date();

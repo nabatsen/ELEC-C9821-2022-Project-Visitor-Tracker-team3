@@ -28,48 +28,7 @@ nav {
   font-weight: 500;
   padding: 1.2rem 4rem 0;
 }
-.login {
-  padding: 1.2rem;
-  display: flex;
-}
 
-.login-input {
-  border: none;
-  padding: 0.5rem 2rem;
-  font-size: 1.6rem;
-  font-family: inherit;
-  text-align: center;
-  width: 12rem;
-  border-radius: 10rem;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  color: inherit;
-  border: 1px solid #fff;
-  transition: all 0.3s;
-  /* justify-content: center; */
-}
-.login-input:focus {
-  outline: none;
-  border: 1px solid #ccc;
-}
-
-.login-input::placeholder {
-  color: #bbb;
-}
-
-.login__btn {
-  border: none;
-  background: none;
-  font-size: 2.2rem;
-  color: antiquewhite;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.login__btn:hover,
-.login__btn:focus {
-  outline: none;
-  color: #777;
-}
 .container {
   padding: 2rem 3rem 0;
 }
@@ -103,7 +62,7 @@ nav {
   text-transform: uppercase;
   letter-spacing: 0.2rem;
   align-items: center;
-  margin-top: 1.2rem;
+  margin: 0.5rem 0 0.4rem;
 }
 
 .weekdays {
@@ -173,6 +132,6 @@ nav {
 }
 
 /* Display fetch data button after log-in */
-.hidden {
+/* .hidden {
   display: none;
-}
+} */
