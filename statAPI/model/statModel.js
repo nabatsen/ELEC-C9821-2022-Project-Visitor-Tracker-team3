@@ -9,14 +9,12 @@ function find(id, startdate=undefined, enddate=undefined) {
       reject(new Error("No device with such ID"));
     else {
       stats = statistics[id];
-      
       if(startdate != undefined) {
-        stats.filter(stat => stat.date >= startdate)
+        stats = stats.filter(stat => stat.date >= startdate);
       }
       if(enddate != undefined) {
-        stats.filter(stat => stat.date <= enddate)
+        stats = stats.filter(stat => stat.date <= enddate)
       }
-
       resolve(stats);
     }
   });
