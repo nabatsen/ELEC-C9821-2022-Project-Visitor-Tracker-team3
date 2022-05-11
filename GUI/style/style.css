@@ -120,11 +120,11 @@ nav {
   background-color: #cca722;
   color: white;
 }
-.fetch-api,
-.add-data {
+.show_date,
+.show_visitor {
   border: none;
   background: none;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: antiquewhite;
   cursor: pointer;
   transition: all 0.3s;

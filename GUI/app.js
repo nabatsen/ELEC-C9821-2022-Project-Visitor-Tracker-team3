@@ -1,7 +1,8 @@
 'use strict';
+// import fetch from 'node-fetch';
 
-const fetch = document.querySelector('.fetch-api');
-const addData = document.querySelector('.add-data');
+// const fetch_btn = document.querySelector('.fetch-api');
+// const addData = document.querySelector('.add-data');
 const labelWelcome = document.querySelector('.welcome');
 
 //////////
@@ -89,3 +90,13 @@ document.querySelector('.next').addEventListener('click', () => {
 });
 
 renderCalendar();
+
+axios.get('http://localhost:3000/api/stat?id=1').then(response => {
+  let visitor = document.querySelector('.show_visitor');
+  visitor.innerHTML += ' ' + response.data[0].visitors;
+  let date = document.querySelector('.show_date');
+  date.innerHTML += '<br>' + response.data[0].date;
+});
+// document.getElementById("p").textContent
+// let test_element = document.querySelector("#test_element")
+// test_element.innerHTML = res.data
