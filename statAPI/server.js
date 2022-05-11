@@ -14,6 +14,7 @@ const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
   res.setHeader('Access-Control-Allow-Headers', '*');
   const pathname = url.parse(req.url, true).pathname;
+  console.log(req.method, 'to', req.url);
   if (pathname === '/api/stat' && req.method === 'GET') {
     getStat(req, res);
   } else if (pathname === '/api/stat' && req.method === 'POST') {
@@ -26,6 +27,6 @@ const server = http.createServer((req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000; // check if environment variable or use 3000
+const PORT = process.env.PORT || 3000; // check if environment variable or use 5000
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 module.exports = server;
