@@ -4,6 +4,8 @@
 // const fetch_btn = document.querySelector('.fetch-api');
 // const addData = document.querySelector('.add-data');
 const labelWelcome = document.querySelector('.welcome');
+let visitor = document.querySelector('.show_visitor');
+let show_date = document.querySelector('.show_date');
 const months = [
   'January',
   'February',
@@ -19,7 +21,19 @@ const months = [
   'December',
 ];
 //////////
-
+function statOnDate(date) {
+  axios
+    .get(
+      `http://localhost:3000/api/stat?id=1&startdate=${date}&enddate=${date}`
+    )
+    .then(response => {
+      visitor.innerHTML = 'Number of visitor:';
+      show_date.innerHTML = 'Date:';
+      visitor.innerHTML += ' ' + response.data[0].visitors;
+      show_date.innerHTML += '<br>' + response.data[0].date;
+      console.log(response.data[0].visitors);
+    });
+}
 function onClickTheDate(self) {
   let currentMonth = document.querySelector('.date h1').innerHTML;
   let currentDay = self.innerHTML < 10 ? '0' + self.innerHTML : self.innerHTML;
@@ -29,6 +43,7 @@ function onClickTheDate(self) {
       : months.indexOf(currentMonth) + 1;
   let choose_day = '2022-' + month + '-' + currentDay;
   console.log(choose_day);
+  statOnDate(choose_day);
   return choose_day;
 }
 ////////////////////////// Calendar
@@ -103,8 +118,8 @@ document.querySelector('.next').addEventListener('click', () => {
 renderCalendar();
 
 axios.get('http://localhost:3000/api/stat?id=1').then(response => {
-  let visitor = document.querySelector('.show_visitor');
-  visitor.innerHTML += ' ' + response.data[0].visitors;
-  let date = document.querySelector('.show_date');
-  date.innerHTML += '<br>' + response.data[0].date;
+  // let visitor = document.querySelector('.show_visitor');
+  visitor.innerHTML += ' ' + response.data[1].visitors;
+  // let date = document.querySelector('.show_date');
+  show_date.innerHTML += '<br>' + response.data[1].date;
 });
