@@ -4,9 +4,33 @@
 // const fetch_btn = document.querySelector('.fetch-api');
 // const addData = document.querySelector('.add-data');
 const labelWelcome = document.querySelector('.welcome');
-
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 //////////
 
+function onClickTheDate(self) {
+  let currentMonth = document.querySelector('.date h1').innerHTML;
+  let currentDay = self.innerHTML < 10 ? '0' + self.innerHTML : self.innerHTML;
+  let month =
+    months.indexOf(currentMonth) < 10
+      ? '0' + (months.indexOf(currentMonth) + 1)
+      : months.indexOf(currentMonth) + 1;
+  let choose_day = '2022-' + month + '-' + currentDay;
+  console.log(choose_day);
+  return choose_day;
+}
 ////////////////////////// Calendar
 const date = new Date();
 
@@ -37,20 +61,7 @@ const renderCalendar = () => {
 
   const nextDays = 7 - lastDayIndex - 1;
 
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+  console.log(date.getMonth());
 
   document.querySelector('.date h1').innerHTML = months[date.getMonth()];
 
@@ -69,7 +80,7 @@ const renderCalendar = () => {
     ) {
       days += `<div class="today">${i}</div>`;
     } else {
-      days += `<div>${i}</div>`;
+      days += `<div onclick="onClickTheDate(this)" class="ddd">${i}</div>`; // *** this tức là phần tử được click vào;
     }
   }
 
@@ -97,6 +108,3 @@ axios.get('http://localhost:3000/api/stat?id=1').then(response => {
   let date = document.querySelector('.show_date');
   date.innerHTML += '<br>' + response.data[0].date;
 });
-// document.getElementById("p").textContent
-// let test_element = document.querySelector("#test_element")
-// test_element.innerHTML = res.data
