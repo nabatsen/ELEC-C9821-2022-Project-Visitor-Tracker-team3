@@ -22,7 +22,8 @@ nav {
   align-items: center;
   padding: 0 2rem;
 }
-.welcome {
+.welcome,
+.opening-days {
   color: #fffeff;
   font-size: 1.9rem;
   font-weight: 500;
@@ -37,6 +38,7 @@ nav {
   height: 25rem;
   background-color: #006e7f;
   box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.4);
+  overflow: hidden;
 }
 
 .month {
@@ -83,6 +85,7 @@ nav {
   align-items: center;
   color: #fefbe7;
   text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+  animation: to-top 1s forwards;
 }
 
 .days {
@@ -90,6 +93,7 @@ nav {
   display: flex;
   flex-wrap: wrap;
   padding: 0.2rem;
+  animation: to-top 1s forwards;
 }
 
 .days div {
@@ -105,10 +109,12 @@ nav {
   transition: background-color 0.2s;
 }
 
-.days div:hover:not(.today) {
-  background-color: #262626;
-  border: 0.2rem solid #777;
+.days div:hover {
+  /* background-color: #262626; */
+  border-radius: 10px;
+  border: 0.2rem solid #ffe69a;
   cursor: pointer;
+  transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
 }
 
 .prev-date,
@@ -117,7 +123,9 @@ nav {
 }
 
 .today {
-  background-color: #cca722;
+  border-radius: 15px;
+  border: 2px solid #f8cb2e;
+  background-color: #187498;
   color: white;
 }
 .show_date,
@@ -131,7 +139,13 @@ nav {
   padding: 0 20rem 1rem;
 }
 
-/* Display fetch data button after log-in */
-/* .hidden {
-  display: none;
-} */
+@keyframes to-top {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
