@@ -1,11 +1,40 @@
 'use strict';
-// import fetch from 'node-fetch';
 
-// const fetch_btn = document.querySelector('.fetch-api');
-// const addData = document.querySelector('.add-data');
 const labelWelcome = document.querySelector('.welcome');
 let visitor = document.querySelector('.show_visitor');
 let show_date = document.querySelector('.show_date');
+const getData = document.querySelector('.range-data');
+let start_date;
+let end_date;
+
+const getDataOnRange = function (startDate, endDate) {
+  axios
+    .get(
+      `http://localhost:3000/api/stat?id=1&startdate=${startDate}&enddate=${endDate}`
+    )
+    .then(response => {
+      console.log(response.data);
+      response.data.forEach(data => {
+        console.log(data.date, data.visitors);
+      });
+    });
+};
+const chooseRangeDate = function () {
+  document.getElementById('start').addEventListener('change', function () {
+    console.log(this.value);
+    start_date = this.value;
+  });
+  document.getElementById('end').addEventListener('change', function () {
+    console.log(this.value);
+    end_date = this.value;
+  });
+  getData.addEventListener('click', function () {
+    console.log(start_date);
+    console.log(end_date);
+    getDataOnRange(start_date, end_date);
+  });
+};
+chooseRangeDate();
 const months = [
   'January',
   'February',
@@ -20,6 +49,7 @@ const months = [
   'November',
   'December',
 ];
+
 //////////
 function statOnDate(date) {
   axios
@@ -76,7 +106,7 @@ const renderCalendar = () => {
 
   const nextDays = 7 - lastDayIndex - 1;
 
-  console.log(date.getMonth());
+  // console.log(date.getMonth());
 
   document.querySelector('.date h1').innerHTML = months[date.getMonth()];
 
@@ -119,7 +149,7 @@ renderCalendar();
 
 axios.get('http://localhost:3000/api/stat?id=1').then(response => {
   // let visitor = document.querySelector('.show_visitor');
-  visitor.innerHTML += ' ' + response.data[1].visitors;
+  visitor.innerHTML += ' ' + response.data[response.data.length - 1].visitors;
   // let date = document.querySelector('.show_date');
-  show_date.innerHTML += '<br>' + response.data[1].date;
+  show_date.innerHTML += '<br>' + response.data[response.data.length - 1].date;
 });

@@ -1,7 +1,11 @@
 {
   "1": [
+    { "date": "2022-05-01", "visitors": 3 },
     { "date": "2022-05-02", "visitors": 22 },
+    { "date": "2022-05-03", "visitors": 4 },
     { "date": "2022-05-04", "visitors": 10 },
-    { "date": "2022-05-11", "visitors": 3 }
+    { "date": "2022-05-05", "visitors": 6 },
+    { "date": "2022-05-11", "visitors": 3 },
+    { "date": "2022-05-17", "visitors": 19 }
   ]
 }

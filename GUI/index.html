@@ -20,8 +20,10 @@
       console.log(response)
     }></script> -->
     <nav>
-      <p class="welcome">Welcome</p>
-      <p class="opening-days">Opening days:</p>
+      <p class="welcome">
+        Welcome, <br />
+        it's Dipoli Exhibition.
+      </p>
     </nav>
     <table>
       <tbody>
@@ -55,6 +57,25 @@
             <button class="add-data">Add statistic</button> -->
             <p class="show_date">Date:</p>
             <p class="show_visitor">Number of visitor:</p>
+            <label for="start">Start date:</label>
+            <input
+              type="date"
+              id="start"
+              name="trip-start"
+              value="2022-05-17"
+              min="2022-01-01"
+              max="2022-12-31"
+            />
+            <label for="end">End date:</label>
+            <input
+              type="date"
+              id="end"
+              name="trip-start"
+              value="2022-05-17"
+              min="2022-01-01"
+              max="2022-12-31"
+            />
+            <button class="range-data">Get data</button>
           </td>
         </tr>
       </tbody>
