@@ -111,3 +111,4 @@ npm run dev
 ```
 
 The front end can be opened temporary by copy the path and paste on the browser.
+Please use "Inspect" on your browser to check if any problems happen.
