@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: inherit;
+  background-attachment: fixed;
 }
 
 body {
@@ -25,6 +26,11 @@ nav {
   font-size: 1.9rem;
   font-weight: 500;
   padding: 1.2rem 4rem 0;
+}
+.show-data-range {
+  color: #fffeff;
+  font-size: 1.6rem;
+  font-weight: 300;
 }
 label {
   /* display: block; */
@@ -159,7 +165,13 @@ label {
   transition: all 0.3s;
   padding: 0 20rem 1rem 3rem;
 }
-
+.show-data-range {
+  margin-left: 3rem;
+  margin-bottom: 2rem;
+}
+#visitors {
+  margin: 3rem 0 1rem 4rem;
+}
 @keyframes to-top {
   0% {
     transform: translateY(100%);

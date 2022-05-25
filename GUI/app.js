@@ -4,33 +4,107 @@ const labelWelcome = document.querySelector('.welcome');
 let visitor = document.querySelector('.show_visitor');
 let show_date = document.querySelector('.show_date');
 const getData = document.querySelector('.range-data');
+let showData = document.querySelector('.show-data-range');
+let data_arr = [];
+
 let start_date;
 let end_date;
+Chart.defaults.color = '#FFFFFF';
 
+function nextDay(date) {
+  return new Date(date.getTime() + 24 * 3600 * 1000);
+}
+
+function clearCanvas() {
+  document.getElementById('visitors').remove();
+  document.getElementById('canvas').innerHTML +=
+    '<canvas id="visitors"  width="800" height="450"></canvas>';
+}
 const getDataOnRange = function (startDate, endDate) {
   axios
     .get(
       `http://localhost:3000/api/stat?id=1&startdate=${startDate}&enddate=${endDate}`
     )
     .then(response => {
-      console.log(response.data);
-      response.data.forEach(data => {
-        console.log(data.date, data.visitors);
-      });
+      var max = 0;
+      var cur = new Date(startDate);
+      var last = new Date(endDate);
+      var dates = [];
+      var visitors = [];
+      clearCanvas();
+
+      do {
+        var tmp = new Object();
+        dates.push(
+          cur.toLocaleString('en-us', { month: 'short', day: 'numeric' })
+        );
+        if (
+          response.data.length > 0 &&
+          new Date(response.data[0].date).getTime() == cur.getTime()
+        ) {
+          visitors.push(response.data.shift().visitors);
+        } else visitors.push(0);
+        max = Math.max(max, visitors[visitors.length - 1]);
+        cur = nextDay(cur);
+      } while (cur.getTime() <= last.getTime());
+      //time to draw
+      const DATA_COUNT = visitors.length;
+      const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: max };
+      const labels = dates;
+      const data = {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Visitors',
+            data: visitors,
+            backgroundColor: '#d467b4',
+          },
+        ],
+      };
+      const config = {
+        type: 'bar',
+        data: data,
+        options: {
+          responsive: false,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Visitors Chart',
+            },
+          },
+        },
+      };
+      const myChart = new Chart(document.getElementById('visitors'), config);
     });
+  // axios
+  //   .get(
+  //     `http://localhost:3000/api/stat?id=1&startdate=${startDate}&enddate=${endDate}`
+  //   )
+  //   .then(response => {
+  //     response.data.forEach(data => {
+  //       let data_combine = data.date + ' - ' + data.visitors;
+  //       // showData.innerHTML = '';
+  //       showData.innerHTML += data_combine + '<br>';
+  //       data_arr.push(data_combine);
+  //       console.log(data_combine);
+  //     });
+  //   });
 };
 const chooseRangeDate = function () {
   document.getElementById('start').addEventListener('change', function () {
-    console.log(this.value);
     start_date = this.value;
   });
   document.getElementById('end').addEventListener('change', function () {
-    console.log(this.value);
     end_date = this.value;
   });
   getData.addEventListener('click', function () {
+    // showData.innerHTML = '';
     console.log(start_date);
     console.log(end_date);
+
     getDataOnRange(start_date, end_date);
   });
 };
@@ -106,8 +180,6 @@ const renderCalendar = () => {
 
   const nextDays = 7 - lastDayIndex - 1;
 
-  // console.log(date.getMonth());
-
   document.querySelector('.date h1').innerHTML = months[date.getMonth()];
 
   document.querySelector('.date p').innerHTML = new Date().toDateString();
@@ -125,7 +197,7 @@ const renderCalendar = () => {
     ) {
       days += `<div class="today">${i}</div>`;
     } else {
-      days += `<div onclick="onClickTheDate(this)" class="ddd">${i}</div>`; // *** this tức là phần tử được click vào;
+      days += `<div onclick="onClickTheDate(this)" class="ddd">${i}</div>`;
     }
   }
 

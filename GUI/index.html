@@ -53,8 +53,6 @@
             </div>
           </td>
           <td>
-            <!-- <button class="fetch-api">Fetch data</button>
-            <button class="add-data">Add statistic</button> -->
             <p class="show_date">Date:</p>
             <p class="show_visitor">Number of visitor:</p>
             <label for="start">Start date:</label>
@@ -62,7 +60,6 @@
               type="date"
               id="start"
               name="trip-start"
-              value="2022-05-17"
               min="2022-01-01"
               max="2022-12-31"
             />
@@ -71,7 +68,6 @@
               type="date"
               id="end"
               name="trip-start"
-              value="2022-05-17"
               min="2022-01-01"
               max="2022-12-31"
             />
@@ -80,6 +76,9 @@
         </tr>
       </tbody>
     </table>
+    <div id="canvas">
+      <canvas id="visitors" width="800" height="450"></canvas>
+    </div>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -102,6 +101,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script defer src="app.js"></script>
   </body>
