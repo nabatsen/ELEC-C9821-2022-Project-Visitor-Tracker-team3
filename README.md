@@ -19,10 +19,14 @@ We are using computer vision technologies (OpenVINO framework) to capture and pr
 # First, start the back-end server
 
 ```
-cd dtap_team3
-cd statAPI
+cd dtap_team3/statAPI
 npm run dev
 ```
 
-The front end can be opened temporary by copy the path and paste on the browser.
-Please use "Inspect" on your browser to check if any problems happen.
+To run the counter app, you should have OpenVINO runtime installed. Run it as
+```
+cd dtap_team3/Raspberrypi
+python3 counter.py
+```
+
+The web app is not hosted by a web server now, but can be opened locally by making the browser open GUI/index.html .
