@@ -2,15 +2,15 @@
 
 # Project: Visitor Tracker
 
-Visitor tracking for exhibition space(s) in Aalto University
+Visitor tracking for exhibition space(s) in Aalto University.
 
 # Design concept
 
-Problem: hosts want to know how many people visit their exhibition. In addition, they would also like to collect more fine-grained data to understand which parts of the exhibition are the most popular and how visitor numbers change with time
+Problem: hosts want to know how many people visit their exhibition. In addition, they would also like to collect more fine-grained data to understand which parts of the exhibition are the most popular and how visitor numbers change with time.
 
-Typical Solution: curators keeping track of visitors behavior while leading the excursions / observing the exhibition and analyzing the data by themselves
+Typical Solution: curators keeping track of visitors behavior while leading the excursions / observing the exhibition and analyzing the data by themselves.
 
-Our Solution: build the system consisting of device keeping track of people’s movements around the exhibition, backend storing and analyzing the data, and web interface to display the results to the user
+Our Solution: build the system consisting of device keeping track of people’s movements around the exhibition, backend storing and analyzing the data, and web interface to display the results to the user.
 
 # Visualization 
 
