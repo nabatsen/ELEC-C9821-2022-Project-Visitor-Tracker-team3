@@ -149,7 +149,7 @@ while True:
         if SHOW_IMG:
             for id, coords in current_people:
                 cv2.putText(frame, str(id), coords, cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            cv2.putText(frame, str(len(entered)), (int(0.9*w_orig), int(0.1*h_orig)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            cv2.putText(frame, str(len(entered)), (int(0.9*w_orig), int(0.1*h_orig)), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
             cv2.line(frame, *LINE, (255, 0, 0), 2)
             cv2.imshow("Frame", frame)
 
