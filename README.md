@@ -2,7 +2,7 @@
 
 # Project: Visitor Tracker
 
-Visitor tracking for exhibition space(s) in Aalto
+Visitor tracking for exhibition space(s) in Aalto University
 
 # Design concept
 
@@ -11,6 +11,20 @@ Problem: hosts want to know how many people visit their exhibition. In addition,
 Typical Solution: curators keeping track of visitors behavior while leading the excursions / observing the exhibition and analyzing the data by themselves
 
 Our Solution: build the system consisting of device keeping track of people’s movements around the exhibition, backend storing and analyzing the data, and web interface to display the results to the user
+
+# Visualization 
+
+For the visualization and GUI we are using Figma design tool.
+
+## Figma
+
+Initial visualization (mobile application): https://www.figma.com/file/19O2tZ73DjdWIlp6itdmEn/Untitled?node-id=0%3A1
+
+Final visualization (website): https://www.figma.com/file/tmM3bv87e8H2c6MS71wNoO/Exhibition-Tracking-figma?node-id=4%3A17
+
+### UML 
+
+UML (for website and mobile application): https://miro.com/app/board/uXjVO_Sse6c=/?invite_link_id=739179638164
 
 # Technologies
 
