@@ -14,7 +14,7 @@ Our Solution: build the system consisting of device keeping track of people’s 
 
 # Visualization 
 
-For the visualization and GUI we are using Figma design tool.
+For the Web GUI visualization we are using Figma design tool.
 
 ## Figma
 
