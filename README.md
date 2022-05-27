@@ -1,6 +1,8 @@
 # DTAP_team3
 
-## Getting started
+# Project: Visitor Tracker
+
+Visitor tracking for exhibition space(s) in Aalto
 
 # Design concept
 
